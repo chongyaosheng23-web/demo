@@ -1,137 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>EasyEarn - Your Path to Flexible Work</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-  <!-- 1. Load the CSS file -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      :root {
+        --primary-color: #38a832;
+        --secondary-color: #10ac84;
+        --accent-gradient: linear-gradient(160deg, #28b485, #a2e247); 
+        --accent-button-text: #202124;
+        --text-dark: #202124;
+        --text-medium: #5f6368;
+        --text-light: #70757a;
+        --bg-light: #f8f9fa;
+        --card-bg: #ffffff;
+        --border-color: #dadce0;
+        --border-radius-lg: 16px;
+        --border-radius-md: 12px;
+        --border-radius-sm: 8px;
+        --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+      }
+      
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0; padding: 0;
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+      }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-  <!-- 2. Load the client-side script (deferred) -->
-  <script src="{{ url_for('static', filename='js/form.js') }}" defer></script>
+      /* --- Header & Nav (Desktop Default) --- */
+      .header {
+        background-color: var(--card-bg);
+        padding: 15px 40px;
+        box-shadow: var(--card-shadow);
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      .container { padding-top: 0; }
+      .logo-link { text-decoration: none; color: var(--text-dark); display: flex; align-items: center; }
+      .header h1 { margin: 0; font-size: 1.4em; font-weight: 600; color: var(--text-dark); }
+      
+      .main-nav ul {
+        margin: 0; padding: 0; list-style: none;
+        display: flex; align-items: center;
+      }
+      .main-nav li { margin-left: 15px; }
+      .main-nav a {
+        text-decoration: none; color: var(--text-medium);
+        font-weight: 500; font-size: 0.95em; padding: 8px 12px;
+        border-radius: var(--border-radius-sm); transition: all 0.3s ease;
+        display: inline-block;
+      }
+      .main-nav a:hover:not(.button-accent) {
+        color: #ffffff; background-color: var(--primary-color);
+        transform: translateY(-2px); box-shadow: 0 4px 10px rgba(56, 168, 50, 0.3);
+      }
+      .main-nav a.button-accent {
+        background: var(--accent-gradient); color: #202124 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); margin-left: 15px;
+      }
+      .main-nav a.button-accent:hover {
+        transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* --- Hamburger Menu (Hidden on Desktop) --- */
+      #hamburger-button {
+        display: none; /* Hidden by default */
+        background: none; border: none; cursor: pointer;
+        font-size: 2rem; color: var(--text-dark); padding: 5px;
+      }
+
+      /* --- Mobile Styles (Max-width: 768px) --- */
+      @media (max-width: 768px) {
+        .header {
+          flex-wrap: wrap; /* Allow items to wrap */
+          padding: 15px 20px;
+        }
+        
+        /* Ensure logo and hamburger are on the same row */
+        .logo-link { flex-grow: 1; }
+        #hamburger-button { display: block; /* Show hamburger on mobile */ }
+        
+        /* Force the nav to break to a new line */
+        .main-nav {
+          width: 100%;
+          flex-basis: 100%;
+        }
+
+        /* HIDE the menu list by default on mobile */
+        #main-nav-list {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          padding-top: 20px;
+          border-top: 1px solid var(--border-color);
+          margin-top: 15px;
+        }
+        
+        /* SHOW the menu when the .is-open class is added */
+        #main-nav-list.is-open {
+          display: flex;
+        }
+
+        /* Mobile menu item styling */
+        .main-nav li { margin: 0 0 10px 0; width: 100%; }
+        .main-nav a {
+          display: block; text-align: center; padding: 12px;
+          background-color: var(--bg-light);
+        }
+        .main-nav a.button-accent { margin-left: 0; margin-top: 10px; }
+      }
+
+      /* --- Other Sections --- */
+      .hero-section {
+        display: flex; align-items: center; justify-content: center;
+        padding: 120px 0 80px 0; min-height: 600px; gap: 40px;
+      }
+      .hero-left { flex: 1; max-width: 50%; padding-right: 20px; }
+      .hero-left h2 { font-size: 3.2em; font-weight: 700; line-height: 1.1; margin-bottom: 20px; }
+      .hero-left p { font-size: 1.2em; color: var(--text-medium); margin-bottom: 30px; }
+      
+      .hero-right {
+        flex: 0 0 440px; max-width: 440px;
+        background-color: var(--card-bg); padding: 35px 30px;
+        border-radius: var(--border-radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .hero-right h3 { font-size: 1.8em; margin: 0 0 10px 0; text-align: center; }
+      .hero-right .tagline { color: var(--text-light); margin-bottom: 25px; text-align: center; }
+      .form-group { margin-bottom: 16px; }
+      .form-group input, .form-group select {
+        width: 100%; padding: 12px 16px; border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-md); font-family: inherit; font-size: 0.95em;
+        box-sizing: border-box;
+      }
+      .hero-right button[type="submit"] {
+        background-color: var(--primary-color); color: white;
+        padding: 14px 25px; font-size: 1.05em; border-radius: var(--border-radius-md);
+        width: 100%; margin-top: 10px; border: none; cursor: pointer; transition: all 0.3s ease;
+      }
+      .hero-right button:hover { background-color: #31942c; transform: translateY(-2px); }
+
+      .card {
+        background-color: var(--card-bg); padding: 40px;
+        border-radius: var(--border-radius-lg); box-shadow: var(--card-shadow);
+        margin: 40px auto; max-width: 900px;
+      }
+      .card h2 { font-size: 2.2em; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 30px; }
+      .advantage-item, .testimonial-item {
+        background-color: var(--bg-light); border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-md); padding: 25px; margin-bottom: 20px;
+      }
+      .advantage-item h3 { color: var(--primary-color); margin: 0 0 10px 0; }
+      .testimonial-item { border-left: 5px solid var(--secondary-color); font-style: italic; }
+      footer { text-align: center; margin-top: 50px; padding: 30px; border-top: 1px solid var(--border-color); }
+
+      @media (max-width: 992px) {
+        .hero-section { flex-direction: column; padding: 100px 0 50px 0; }
+        .hero-left, .hero-right { max-width: 100%; flex: none; }
+        .hero-left { text-align: center; margin-bottom: 30px; }
+        .hero-right { max-width: 500px; margin: 0 auto; }
+      }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <a href="#hero-section" class="logo-link">
-        <div class="logo-section">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EasyEarn Logo" class="logo">
-        </div>
-      </a>
 
-      <nav class="main-nav">
-        <ul>
-          <li><a href="#latest-jobs">Jobs</a></li>
-          <li><a href="#why-choose-us">Why Us?</a></li>
-          <li><a href="#about-us">About Us</a></li>
-          <li><a href="#user-testimonials">Testimonials</a></li>
-          <li><a href="#hero-section" class="button button-accent">Let's Talk</a></li>
-        </ul>
-      </nav>
+    <header class="header">
+        <a href="#" class="logo-link">
+            <div class="logo-section">
+                <h1>MyCompany</h1>
+            </div>
+        </a>
+        
+        <!-- Hamburger Button -->
+        <button id="hamburger-button" aria-label="Toggle navigation">
+            &#9776;
+        </button>
+
+        <nav class="main-nav">
+            <ul id="main-nav-list">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="button button-accent">Let's Talk</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- ======== HERO ======== -->
-    <section id="hero-section" class="hero-section">
-      <div class="hero-left">
-        <h2>Discover online jobs that work for you.</h2>
-        <p>With EasyEarn, you set the schedule. Find trusted remote roles and get paid on time — all from home.</p>
-      </div>
-
-      <div class="hero-right">
-        <div class="card form-card">
-          <h3>Let's Talk</h3>
-          <p class="tagline">Tell us about you. We'll match you with roles that fit your skills.</p>
-
-          <form id="leadForm">
-            <div class="form-group">
-              <input type="text" id="fullName" name="fullName" placeholder="Your Name" required>
+    <main class="container">
+        <section class="hero-section">
+            <div class="hero-left">
+                <h2>Grow Your Business With Our Expertise</h2>
+                <p>We provide top-tier solutions to help you succeed. Fill out the form to get started with a free consultation.</p>
             </div>
+            
+            <aside class="hero-right">
+                <h3>Get Started Today</h3>
+                <p class="tagline">Free consultation, no obligation.</p>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="service" name="service" required>
+                            <option value="" disabled selected>Select a Service</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="development">Development</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <button type="submit">Get My Free Consultation</button>
+                </form>
+            </aside>
+        </section>
 
-            <div class="form-group">
-              <input type="email" id="email" name="email" placeholder="Email" required>
+        <section id="services" class="card">
+            <h2>Our Services</h2>
+            <div class="advantage-item">
+                <h3>Strategic Consulting</h3>
+                <p>We analyze your business and provide a clear roadmap for growth.</p>
             </div>
-
-            <div class="form-group">
-              <input type="text" id="whatsapp" name="whatsapp" placeholder="WhatsApp Number" required>
+            <div class="advantage-item">
+                <h3>Web Development</h3>
+                <p>Custom, high-performance websites and applications built for you.</p>
             </div>
-
-            <div class="form-group">
-              <select id="state" name="state" required>
-                <option value="">Location</option>
-                {% for state in states %}
-                  <option value="{{ state }}">{{ state }}</option>
-                {% endfor %}
-              </select>
-            </div>
-
-            <div class="form-group">
-              <select id="interestedJob" name="interestedJob" required>
-                <option value="">Interested Job</option>
-                {% for job in jobs %}
-                  <option value="{{ job }}">{{ job }}</option>
-                {% endfor %}
-              </select>
-            </div>
-
-            <div class="form-group">
-              <select id="availability" name="availability" required>
-                <option value="">Availability</option>
-                {% for avail in availabilities %}
-                  <option value="{{ avail }}">{{ avail }}</option>
-                {% endfor %}
-              </select>
-            </div>
-
-            <button type="submit">Let's Talk</button>
-            <div id="formStatus" class="form-status"></div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======== LATEST JOBS ======== -->
-    <section id="latest-jobs" class="card">
-      <h2>Latest Jobs</h2>
-      {% for job in latest_jobs %}
-        <div class="job-item bounce-animation">
-          <h3>{{ job.title }}</h3>
-          <p>{{ job.description }}</p>
-        </div>
-      {% endfor %}
-    </section>
-
-    <!-- ======== WHY CHOOSE US ======== -->
-    <section id="why-choose-us" class="card">
-      <h2>Why Choose EasyEarn?</h2>
-      {% for adv in advantages %}
-        <div class="advantage-item bounce-animation">
-          <h3>{{ adv.title }}</h3>
-          <p>{{ adv.description }}</p>
-        </div>
-      {% endfor %}
-    </section>
-
-    <!-- ======== ABOUT US ======== -->
-    <section id="about-us" class="card">
-      <h2>About Us</h2>
-      <p>{{ about_text }}</p>
-    </section>
-
-    <!-- ======== TESTIMONIALS ======== -->
-    <section id="user-testimonials" class="card">
-      <h2>What Our Users Say</h2>
-      {% for t in testimonials %}
-        <div class="testimonial-item">
-          <p>"{{ t.quote }}"</p>
-          <p class="testimonial-author">- {{ t.author }}</p>
-        </div>
-      {% endfor %}
-    </section>
+        </section>
+    </main>
 
     <footer>
-      <p>© {{ current_year }} EasyEarn. All rights reserved.</p>
+        <p>&copy; 2025 MyCompany. All rights reserved.</p>
     </footer>
-  </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Hamburger Menu Logic ---
+        const hamburgerBtn = document.getElementById("hamburger-button");
+        const navList = document.getElementById("main-nav-list");
+
+        if (hamburgerBtn && navList) {
+          hamburgerBtn.addEventListener("click", () => {
+            navList.classList.toggle("is-open");
+          });
+        }
+
+        // --- Contact Form Logic ---
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm) {
+            contactForm.addEventListener("submit", (e) => {
+              e.preventDefault();
+              const webAppUrl = "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE";
+              const submitBtn = contactForm.querySelector('button[type="submit"]');
+              const originalText = submitBtn.textContent;
+              
+              submitBtn.textContent = "Sending...";
+              submitBtn.disabled = true;
+
+              const formData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                service: document.getElementById("service").value
+              };
+
+              fetch(webAppUrl, {
+                method: "POST", mode: "no-cors", cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+              }).then(() => {
+                  submitBtn.textContent = "Message Sent! ✅";
+                  setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                  }, 3000);
+                  contactForm.reset();
+              }).catch(err => {
+                  console.error(err);
+                  submitBtn.textContent = "Error! Try Again.";
+                  submitBtn.disabled = false;
+              });
+            });
+        }
+      });
+    </script>
 </body>
 </html>
