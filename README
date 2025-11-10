@@ -1,0 +1,4 @@
+To launch testing web application via Vscode
+Open file
+conda activate demo
+python app.py

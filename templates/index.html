@@ -81,42 +81,56 @@
       /* --- Mobile Styles (Max-width: 768px) --- */
       @media (max-width: 768px) {
         .header {
-          flex-wrap: wrap; /* Allow items to wrap */
           padding: 15px 20px;
         }
         
-        /* Ensure logo and hamburger are on the same row */
         .logo-link { flex-grow: 1; }
         #hamburger-button { display: block; /* Show hamburger on mobile */ }
         
-        /* Force the nav to break to a new line */
         .main-nav {
-          width: 100%;
-          flex-basis: 100%;
-        }
-
-        /* HIDE the menu list by default on mobile */
-        #main-nav-list {
           display: none;
-          flex-direction: column;
-          width: 100%;
-          padding-top: 20px;
-          border-top: 1px solid var(--border-color);
-          margin-top: 15px;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          min-width: 220px;
+          background-color: var(--card-bg);
+          border-radius: var(--border-radius-md);
+          box-shadow: var(--card-shadow-hover);
+          padding: 10px 0;
+          z-index: 999;
         }
         
-        /* SHOW the menu when the .is-open class is added */
-        #main-nav-list.is-open {
-          display: flex;
+        .main-nav.is-open {
+          display: block;
         }
-
-        /* Mobile menu item styling */
-        .main-nav li { margin: 0 0 10px 0; width: 100%; }
+        
+        #main-nav-list {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        
+        .main-nav li {
+          margin-left: 0;
+          width: 100%;
+        }
+        
         .main-nav a {
-          display: block; text-align: center; padding: 12px;
+          padding: 12px 20px;
+          text-align: left;
+          border-radius: 0;
+          display: block;
+        }
+        
+        .main-nav a:hover:not(.button-accent) {
           background-color: var(--bg-light);
         }
-        .main-nav a.button-accent { margin-left: 0; margin-top: 10px; }
+        
+        .main-nav a.button-accent {
+          margin: 10px 20px 0 20px;
+          width: calc(100% - 40px);
+          text-align: center;
+          margin-left: 0;
+        }
       }
 
       /* --- Other Sections --- */
@@ -244,11 +258,11 @@
       document.addEventListener("DOMContentLoaded", () => {
         // --- Hamburger Menu Logic ---
         const hamburgerBtn = document.getElementById("hamburger-button");
-        const navList = document.getElementById("main-nav-list");
+        const mainNav = document.querySelector(".main-nav");
 
-        if (hamburgerBtn && navList) {
+        if (hamburgerBtn && mainNav) {
           hamburgerBtn.addEventListener("click", () => {
-            navList.classList.toggle("is-open");
+            mainNav.classList.toggle("is-open");
           });
         }
 
