@@ -33,6 +33,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-light);
+  background-image: 
+    radial-gradient(circle, rgba(56, 168, 50, 0.1) 1px, transparent 1px); /* Green-tinted dots pattern */
+  background-size: 20px 20px; /* Adjust spacing for density */
   color: var(--text-dark);
   line-height: 1.6;
   font-weight: 400;
@@ -94,6 +97,8 @@ body {
   font-size: 1.4em;
   font-weight: 600;
   color: var(--text-dark);
+  position: relative; /* Enables positioning */
+  top: 3px; /* Shifts text up by 2px; adjust as needed */
 }
 
 .main-nav ul {
@@ -501,5 +506,96 @@ footer {
   }
   .hero-right h3 {
       font-size: 1.5em;
+  }
+}
+
+/* Logo Pop Animation (for header logo, if you still want it) */
+@keyframes logoPop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1); /* Slight overshoot for bounce */
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logo {
+  animation: logoPop 0.8s ease-out forwards; /* Quick pop, runs once */
+}
+
+/* Scroll Fade-In Animation */
+@keyframes scrollFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Slide up from below */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply to job items (staggered for effect) */
+.job-item,
+.advantage-item,
+.testimonial-item {
+  animation: scrollFadeIn 0.6s ease-out both; /* Smooth, runs once per element */
+  animation-timeline: scroll(); /* Ties to page scroll */
+  animation-range: entry 0% cover 40%; /* Starts when element enters view, ends at 40% scrolled */
+}
+
+/* Optional: Stagger delays for a cascade effect (first item no delay, second 0.2s, etc.) */
+.job-item:nth-child(1),
+.advantage-item:nth-child(1),
+.testimonial-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.job-item:nth-child(2),
+.advantage-item:nth-child(2),
+.testimonial-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.job-item:nth-child(3),
+.advantage-item:nth-child(3),
+.testimonial-item:nth-child(3) {
+  animation-delay: 0.4s;
+}
+/* Add more for additional items if needed */
+
+/* Loading Screen Styles */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-light); /* Matches your body bg for seamless transition */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Above everything */
+  transition: opacity 0.3s ease; /* Fade out smoothly */
+}
+
+.loader-logo {
+  width: 150px; /* Adjust size as needed; larger for loading screen */
+  height: auto;
+  animation: loaderSpin 0.5s linear infinite; /* Faster spin: 0.5s per rotation */
+}
+
+/* Spinning Animation for Loader Logo */
+@keyframes loaderSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

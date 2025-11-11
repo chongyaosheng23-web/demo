@@ -112,6 +112,11 @@
   </style>
 </head>
 <body>
+  <!-- Loading screen with spinning logo -->
+  <div id="loader">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EasyEarn Loading Logo" class="loader-logo">
+  </div>
+
   <div class="container">
     <header class="header">
       <a href="#hero-section" class="logo-link">
@@ -225,7 +230,7 @@
       <p>© {{ current_year }} EasyEarn. All rights reserved.</p>
     </footer>
   </div>
-  <!-- JavaScript for toggling the menu -->
+  <!-- JavaScript for toggling the menu and hiding loader -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const hamburger = document.getElementById('hamburger');
@@ -246,6 +251,17 @@
           }
         });
       }
+
+      // Hide loader after 1 second
+      const loader = document.getElementById('loader');
+      if (loader) {
+        setTimeout(() => {
+          loader.style.opacity = '0'; // Fade out
+          setTimeout(() => {
+            loader.style.display = 'none'; // Fully remove
+        }, 200); // Shorter fade: 0.2s
+      }, 500); // Total: 0.5 second
+}
     });
   </script>
 </body>
