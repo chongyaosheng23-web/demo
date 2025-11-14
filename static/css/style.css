@@ -3,7 +3,7 @@
 :root {
   /* --- 🎨 NEW COLOR PALETTE --- */
   --primary-color: #38a832; /* NEW: Dark green from 2nd image */
-  --secondary-color: #10ac84; /* Old green as a secondary accent */
+  --secondary-color: #10ac84;; /* Old green as a secondary accent */
   
   /* NEW: Gradient for 'Let's Talk' button from 1st image */
   --accent-gradient: linear-gradient(160deg, #28b485, #a2e247); 
@@ -31,18 +31,46 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ============================================================= */
+/* ============ STRONGER, ALWAYS-VISIBLE WAVE-BLOB SIDES ======= */
+/* ============================================================= */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--bg-light);
-  background-image: 
-    radial-gradient(circle, rgba(56, 168, 50, 0.1) 1px, transparent 1px); /* Green-tinted dots pattern */
-  background-size: 20px 20px; /* Adjust spacing for density */
   color: var(--text-dark);
   line-height: 1.6;
   font-weight: 400;
+
+  /* Strong organic wave-blobs on on left & right edges – visible on ALL devices including phones */
+  background-image:
+    /* Left side */
+    radial-gradient(ellipse 1400px 650px at 0% 15%,  rgba(225, 248, 232, 0.658),  transparent 32%),
+    radial-gradient(ellipse 1200px 700px at 0% 50%,  rgba(122, 255, 222, 0.38), transparent 32%),
+    radial-gradient(ellipse 1500px 600px at 0% 82%,  rgba(162, 226, 71, 0.34), transparent 32%),
+
+    /* Right side */
+    radial-gradient(ellipse 1400px 650px at 100% 20%, rgba(230, 253, 229, 0.644),  transparent 32%),
+    radial-gradient(ellipse 1200px 700px at 100% 55%, rgba(16, 172, 132, 0.38), transparent 32%),
+    radial-gradient(ellipse 1500px 600px at 100% 88%, rgba(162, 226, 71, 0.34), transparent 32%),
+
+    /* Original subtle dots on top */
+    radial-gradient(circle, rgba(56, 168, 50, 0.1) 1px, transparent 1px);
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 0 0;
+  background-attachment: fixed; /* nice subtle parallax */
 }
+
+/* Only enlarge the subtle dot grid on small phones – blobs stay full-size */
+@media (max-width: 768px) {
+  body {
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 25px 25px;
+  }
+}
+/* ============================================================= */
 
 .container {
   max-width: 1200px;
@@ -56,21 +84,15 @@ body {
   padding: 15px 40px;
   border-radius: 0;
   box-shadow: var(--card-shadow);
-  
   position: fixed; 
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap; 
-}
-
-.container {
-  padding-top: 0;
 }
 
 .logo-link {
@@ -84,13 +106,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px; /* This will be ignored now, which is fine */
+  gap: 10px;
 }
 
-/* --- 🛠️ THIS IS THE LOGO FIX --- */
 .logo {
-  height: 32px;  /* Set a fixed height for the header */
-  width: auto;   /* Let the width adjust automatically */
+  height: 32px;
+  width: auto;
   margin-right: 0;
   border-radius: 4px;
 }
@@ -100,8 +121,8 @@ body {
   font-size: 1.4em;
   font-weight: 600;
   color: var(--text-dark);
-  position: relative; /* Enables positioning */
-  top: 2px; /* Shifts text up by 2px; adjust as needed */
+  position: relative;
+  top: 2px;
 }
 
 .main-nav ul {
@@ -116,7 +137,7 @@ body {
   margin-left: 15px;
 }
 
-/* --- 🚀 Nav Button Animations (Updated for Green) --- */
+/* --- 🚀 Nav Button Animations --- */
 .main-nav a {
   text-decoration: none;
   color: var(--text-medium);
@@ -129,16 +150,14 @@ body {
   position: relative;
 }
 
-/* Hover for regular buttons */
 .main-nav a:hover:not(.button-accent),
 .main-nav a:active:not(.button-accent) {
-  color: #ffffff; /* White text */
-  background-color: var(--primary-color); /* NEW: Main green background */
-  transform: translateY(-2px); /* Subtle pop up */
-  box-shadow: 0 4px 10px rgba(56, 168, 50, 0.3); /* NEW: Green shadow */
+  color: #ffffff;
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(56, 168, 50, 0.3);
 }
 
-/* Base button style (for 'Let's Talk') */
 .button {
   padding: 10px 20px;
   border-radius: var(--border-radius-sm);
@@ -150,10 +169,9 @@ body {
   cursor: pointer;
 }
 
-/* --- 🔒 BULLETPROOF FIX FOR 'LET'S TALK' FONT --- */
 .main-nav a.button-accent {
   background: var(--accent-gradient);
-  color: #202124 !important; /* <--- THIS IS THE GUARANTEED FIX */
+  color: #202124 !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   margin-left: 15px;
 }
@@ -161,9 +179,8 @@ body {
 .main-nav a.button-accent:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  color: #202124 !important; /* <--- Keep it dark on hover too */
+  color: #202124 !important;
 }
-/* --- End of Header & Nav Styles --- */
 
 /* --- 🌟 Hero Section Layout --- */
 .hero-section {
@@ -172,12 +189,11 @@ body {
   justify-content: center;
   padding: 120px 0 0px 0;
   min-height: 600px;
-  background-color: var(--bg-light);
+  background-color: transparent;
   gap: 40px;
-  margin-bottom: 0px;           /* ← CHANGE THIS from 80px to 0px */
+  margin-bottom: 0px;
 }
 
-/* Prevent hero headline being hidden when clicking "Let's Talk" */
 #hero-section {
   padding-top: 100px !important;
   margin-top: -20px !important;
@@ -254,18 +270,18 @@ body {
   font-size: 0.95em;
   font-family: 'Poppins', sans-serif;
 }
+
 .hero-right .form-group input::placeholder {
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 .hero-right .form-group input:focus,
 .hero-right .form-group select:focus {
-  border-color: var(--primary-color); /* NEW: Green focus border */
-  box-shadow: 0 0 0 3px rgba(56, 168, 50, 0.15); /* NEW: Green focus shadow */
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(56, 168, 50, 0.15);
   outline: none;
 }
 
-/* Dropdown arrow */
 .hero-right .form-group select {
   appearance: none;
   background-image: url('data:image/svg+xml;utf8,<svg fill="%235f6368" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
@@ -273,39 +289,37 @@ body {
   background-position: right 16px center;
 }
 
-/* Form submit button */
 .hero-right button[type="submit"] {
-  background-color: var(--primary-color); /* NEW: Main green background */
+  background-color: var(--primary-color);
   color: white;
   padding: 14px 25px;
   font-size: 1.05em;
   border-radius: var(--border-radius-md);
   width: 100%;
   margin-top: 10px;
-  transition: all 0.3s ease; /* Added transition */
-  border: none; /* Added */
-  cursor: pointer; /* Added */
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .hero-right button[type="submit"]:hover {
-  background-color: #31942c; /* NEW: Darker green */
+  background-color: #31942c;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(56, 168, 50, 0.3); /* NEW: Green shadow */
+  box-shadow: 0 4px 10px rgba(56, 168, 50, 0.3);
 }
 
-/* --- General Card Styling (for sections below hero) --- */
+/* --- General Card Styling --- */
 .card {
   background-color: var(--card-bg);
   padding: 40px;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--card-shadow);
-  margin: 80px auto !important;      /* ← REDUCED: was 100px, now 80px */
+  margin: 80px auto !important;
   max-width: 900px;
 }
 
-/* Reduced extra lift for the first card after hero */
 #latest-jobs {
-  margin-top: 80px !important;       /* ← REDUCED: was 140px, now 80px */
+  margin-top: 80px !important;
 }
 
 .card h2 {
@@ -331,7 +345,7 @@ body {
 }
 
 .job-item h3, .advantage-item h3 {
-  color: var(--primary-color); /* NEW: Titles are now green */
+  color: var(--primary-color);
   margin-top: 0;
   margin-bottom: 10px;
   font-size: 1.4em;
@@ -344,11 +358,10 @@ body {
   margin-bottom: 0;
 }
 
-/* Refined Bounce/Lift Animation */
 .bounce-animation:hover {
   transform: translateY(-5px);
   box-shadow: var(--card-shadow-hover);
-  border-color: var(--primary-color); /* NEW: Green accent border */
+  border-color: var(--primary-color);
 }
 
 .bounce-animation:active {
@@ -374,7 +387,7 @@ body {
 
 .testimonial-author {
   font-weight: 600;
-  color: var(--primary-color); /* NEW: Author name is green */
+  color: var(--primary-color);
   text-align: right;
   font-size: 0.95em;
   font-style: normal;
@@ -391,13 +404,8 @@ footer {
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
-  .container {
-    padding: 0 15px;
-  }
-
-  .header {
-    padding: 15px 20px;
-  }
+  .container { padding: 0 15px; }
+  .header { padding: 15px 20px; }
 
   .hero-section {
     flex-direction: column;
@@ -408,28 +416,15 @@ footer {
   .hero-left, .hero-right {
     max-width: 100%;
     padding: 0 15px;
-    flex: none;
     width: 100%;
     box-sizing: border-box;
   }
 
-  .hero-left {
-      text-align: center;
-      margin-bottom: 30px;
-  }
-  
-  .hero-right {
-      max-width: 500px;
-      margin: 0 auto;
-  }
+  .hero-left { text-align: center; margin-bottom: 30px; }
+  .hero-right { max-width: 500px; margin: 0 auto; }
 
-  .hero-left h2 {
-    font-size: 2.5em;
-  }
-
-  .hero-left p {
-    font-size: 1.1em;
-  }
+  .hero-left h2 { font-size: 2.5em; }
+  .hero-left p { font-size: 1.1em; }
 }
 
 @media (max-width: 768px) {
@@ -439,14 +434,8 @@ footer {
     align-items: flex-start;
   }
   
-  .logo-link {
-      margin-bottom: 15px;
-      width: 100%;
-  }
-
-  .main-nav {
-      width: 100%;
-  }
+  .logo-link { margin-bottom: 15px; width: 100%; }
+  .main-nav { width: 100%; }
 
   .main-nav ul {
     flex-direction: column;
@@ -460,167 +449,89 @@ footer {
     width: 100%;
   }
   
-  .main-nav a {
-    display: block;
-    text-align: center;
-    padding: 10px;
-    border-radius: var(--border-radius-sm);
-  }
-  
-  /* Mobile hover for REGULAR buttons */
-  .main-nav a:hover:not(.button-accent),
-  .main-nav a:active:not(.button-accent) {
-    color: #ffffff;
-    background-color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(56, 168, 50, 0.3); /* NEW: Green shadow */
-  }
-  
-  /* Mobile hover for ACCENT button */
-  .main-nav a.button-accent {
+  .main-nav .button-accent {
       margin-left: 0;
       margin-top: 10px;
   }
-  .main-nav a.button-accent:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
 
-  .card {
-    padding: 30px 20px;
-  }
+  .card { padding: 30px 20px; }
+  .card h2 { font-size: 2em; }
 
-  .card h2 {
-    font-size: 2em;
-  }
-
-  .hero-left h2 {
-      font-size: 2em;
-  }
-  .hero-left p {
-      font-size: 1em;
-  }
+  .hero-left h2 { font-size: 2em; }
+  .hero-left p { font-size: 1em; }
 }
 
 @media (max-width: 480px) {
-  .header h1 {
-    font-size: 1.2em;
-  }
-
-  .logo {
-    height: 28px; /* Adjusted mobile logo height */
-    width: auto;
-  }
-
-  .card h2 {
-    font-size: 1.8em;
-  }
-
-  .hero-right {
-      padding: 25px 20px;
-  }
-  .hero-right h3 {
-      font-size: 1.5em;
-  }
+  .header h1 { font-size: 1.2em; }
+  .logo { height: 28px; }
+  .card h2 { font-size: 1.8em; }
+  .hero-right { padding: 25px 20px; }
+  .hero-right h3 { font-size: 1.5em; }
 }
 
-/* Logo Pop Animation (for header logo, if you still want it) */
+/* Logo Pop Animation */
 @keyframes logoPop {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1); /* Slight overshoot for bounce */
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
 }
-
-.logo {
-  animation: logoPop 0.8s ease-out forwards; /* Quick pop, runs once */
-}
+.logo { animation: logoPop 0.8s ease-out forwards; }
 
 /* Scroll Fade-In Animation */
 @keyframes scrollFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px); /* Slide up from below */
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Apply to job items (staggered for effect) */
 .job-item,
 .advantage-item,
 .testimonial-item {
-  animation: scrollFadeIn 0.6s ease-out both; /* Smooth, runs once per element */
-  animation-timeline: scroll(); /* Ties to page scroll */
-  animation-range: entry 0% cover 40%; /* Starts when element enters view, ends at 40% scrolled */
+  animation: scrollFadeIn 0.6s ease-out both;
+  animation-timeline: scroll();
+  animation-range: entry 0% cover 40%;
 }
 
-/* Optional: Stagger delays for a cascade effect (first item no delay, second 0.2s, etc.) */
 .job-item:nth-child(1),
 .advantage-item:nth-child(1),
-.testimonial-item:nth-child(1) {
-  animation-delay: 0s;
-}
+.testimonial-item:nth-child(1) { animation-delay: 0s; }
 
 .job-item:nth-child(2),
 .advantage-item:nth-child(2),
-.testimonial-item:nth-child(2) {
-  animation-delay: 0.2s;
-}
+.testimonial-item:nth-child(2) { animation-delay: 0.2s; }
 
 .job-item:nth-child(3),
 .advantage-item:nth-child(3),
-.testimonial-item:nth-child(3) {
-  animation-delay: 0.4s;
-}
-/* Add more for additional items if needed */
+.testimonial-item:nth-child(3) { animation-delay: 0.4s; }
 
-/* Loading Screen Styles */
+/* Loading Screen */
 #loader {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--bg-light); /* Matches your body bg for seamless transition */
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: var(--bg-light);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Above everything */
-  transition: opacity 0.3s ease; /* Faster fade */
+  z-index: 9999;
+  transition: opacity 0.3s ease;
 }
 
 .loader-logo {
-  width: 150px; /* Adjust size as needed; larger for loading screen */
+  width: 150px;
   height: auto;
-  animation: loaderSpin 0.8s linear infinite; /* Faster spin: 0.8s per rotation */
+  animation: loaderSpin 0.8s linear infinite;
 }
 
-/* Spinning Animation for Loader Logo */
 @keyframes loaderSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Fix for anchor links being blocked by fixed header */
+/* Anchor offset fix */
 #hero-section,
 #latest-jobs,
 #why-choose-us,
 #about-us,
 #user-testimonials {
-  padding-top: var(--header-offset); /* Space for header */
-  margin-top: calc(-1 * var(--header-offset)); /* Pull up to maintain layout */
+  padding-top: var(--header-offset);
+  margin-top: calc(-1 * var(--header-offset));
 }

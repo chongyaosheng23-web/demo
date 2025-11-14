@@ -109,6 +109,66 @@
         transform: rotate(-45deg) translate(7px, -6px);
       }
     }
+
+    /* ==================== NEW PARTNERS SECTION ==================== */
+    #partners {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .partners-container {
+      max-width: 950px;               /* 5 logos × 150px + gaps = max 5 visible */
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 20px 0;
+    }
+
+    .partners-track {
+      display: flex;
+      gap: 50px;
+      animation: scroll-right 60s linear infinite;
+      will-change: transform;
+    }
+
+    .partner-logo {
+      width: 150px;
+      height: 150px;
+      flex-shrink: 0;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.4s ease;
+    }
+
+    .partner-logo:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    .partners-container:hover .partners-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-right {
+      0% {
+        transform: translateX(-50%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    /* Responsive adjustment - smaller gap on mobile */
+    @media (max-width: 768px) {
+      .partners-track {
+        gap: 30px;
+      }
+      .partners-container {
+        max-width: 100%;
+      }
+    }
+    /* ============================================================ */
   </style>
 </head>
 <body>
@@ -122,7 +182,7 @@
       <a href="#hero-section" class="logo-link">
         <div class="logo-section">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EasyEarn Logo" class="logo">
-            <h1>EasyEarn</h1> <!-- Added 'EasyEarn' text next to the logo -->
+            <h1>EasyEarn</h1>
         </div>
       </a>
       <nav class="main-nav">
@@ -141,6 +201,7 @@
         <span class="bar"></span>
       </button>
     </header>
+
     <!-- ======== HERO ======== -->
     <section id="hero-section" class="hero-section">
       <div class="hero-left">
@@ -191,6 +252,7 @@
         </div>
       </div>
     </section>
+
     <!-- ======== LATEST JOBS ======== -->
     <section id="latest-jobs" class="card">
       <h2>Latest Jobs</h2>
@@ -201,6 +263,7 @@
         </div>
       {% endfor %}
     </section>
+
     <!-- ======== WHY CHOOSE US ======== -->
     <section id="why-choose-us" class="card">
       <h2>Why Choose EasyEarn?</h2>
@@ -211,6 +274,7 @@
         </div>
       {% endfor %}
     </section>
+
     <!-- ======== TESTIMONIALS ======== -->
     <section id="user-testimonials" class="card">
       <h2>What Our Users Say</h2>
@@ -221,15 +285,50 @@
         </div>
       {% endfor %}
     </section>
+
     <!-- ======== ABOUT US ======== -->
     <section id="about-us" class="card">
       <h2>About Us</h2>
       <p>{{ about_text }}</p>
     </section>
+
+    <!-- ======== PARTNER WITH (NEW SECTION) ======== -->
+    <section id="partners" class="card">
+      <h2>Partner With</h2>
+      <div class="partners-container">
+        <div class="partners-track">
+          <!-- Replace these placeholder images with your real partner logos -->
+          <img src="https://via.placeholder.com/150/0044ff/ffffff?text=Partner+1" alt="Partner 1" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ff6b00/ffffff?text=Partner+2" alt="Partner 2" class="partner-logo">
+          <img src="https://via.placeholder.com/150/00c8ff/ffffff?text=Partner+3" alt="Partner 3" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ff006b/ffffff?text=Partner+4" alt="Partner 4" class="partner-logo">
+          <img src="https://via.placeholder.com/150/8d00ff/ffffff?text=Partner+5" alt="Partner 5" class="partner-logo">
+          <img src="https://via.placeholder.com/150/00ff95/ffffff?text=Partner+6" alt="Partner 6" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ff0000/ffffff?text=Partner+7" alt="Partner 7" class="partner-logo">
+          <img src="https://via.placeholder.com/150/00ff00/ffffff?text=Partner+8" alt="Partner 8" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ffff00/ffffff?text=Partner+9" alt="Partner 9" class="partner-logo">
+          <img src="https://via.placeholder.com/150/9900ff/ffffff?text=Partner+10" alt="Partner 10" class="partner-logo">
+
+          <!-- Duplicated set for seamless infinite loop -->
+          <img src="https://via.placeholder.com/150/0044ff/ffffff?text=Partner+1" alt="Partner 1" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ff6b00/ffffff?text=Partner+2" alt="Partner 2" class="partner-logo">
+          <img src="https://via.placeholder.com/150/00c8ff/ffffff?text=Partner+3" alt="Partner 3" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ff006b/ffffff?text=Partner+4" alt="Partner 4" class="partner-logo">
+          <img src="https://via.placeholder.com/150/8d00ff/ffffff?text=Partner+5" alt="Partner 5" class="partner-logo">
+          <img src="https://via.placeholder.com/150/00ff95/ffffff?text=Partner+6" alt="Partner 6" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ff0000/ffffff?text=Partner+7" alt="Partner 7" class="partner-logo">
+          <img src="https://via.placeholder.com/150/00ff00/ffffff?text=Partner+8" alt="Partner 8" class="partner-logo">
+          <img src="https://via.placeholder.com/150/ffff00/ffffff?text=Partner+9" alt="Partner 9" class="partner-logo">
+          <img src="https://via.placeholder.com/150/9900ff/ffffff?text=Partner+10" alt="Partner 10" class="partner-logo">
+        </div>
+      </div>
+    </section>
+
     <footer>
       <p>© {{ current_year }} EasyEarn. All rights reserved.</p>
     </footer>
   </div>
+
   <!-- JavaScript for toggling the menu and hiding loader -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -238,12 +337,11 @@
 
       if (hamburger && navUl) {
         hamburger.addEventListener('click', function(event) {
-          event.stopPropagation(); // Prevent closing immediately
+          event.stopPropagation();
           this.classList.toggle('active');
           navUl.classList.toggle('active');
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', function(event) {
           if (!hamburger.contains(event.target) && !navUl.contains(event.target)) {
             hamburger.classList.remove('active');
@@ -252,16 +350,15 @@
         });
       }
 
-      // Hide loader after 1 second
       const loader = document.getElementById('loader');
       if (loader) {
         setTimeout(() => {
-          loader.style.opacity = '0'; // Fade out
+          loader.style.opacity = '0';
           setTimeout(() => {
-            loader.style.display = 'none'; // Fully remove
-        }, 200); // Shorter fade: 0.2s
-      }, 500); // Total: 0.5 second
-}
+            loader.style.display = 'none';
+          }, 200);
+        }, 500);
+      }
     });
   </script>
 </body>
