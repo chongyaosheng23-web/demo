@@ -170,10 +170,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px 0 80px 0;
+  padding: 120px 0 0px 0;
   min-height: 600px;
   background-color: var(--bg-light);
   gap: 40px;
+  margin-bottom: 0px;           /* ← CHANGE THIS from 80px to 0px */
+}
+
+/* Prevent hero headline being hidden when clicking "Let's Talk" */
+#hero-section {
+  padding-top: 100px !important;
+  margin-top: -20px !important;
 }
 
 .hero-left {
@@ -292,8 +299,13 @@ body {
   padding: 40px;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--card-shadow);
-  margin: 40px auto;
+  margin: 80px auto !important;      /* ← REDUCED: was 100px, now 80px */
   max-width: 900px;
+}
+
+/* Reduced extra lift for the first card after hero */
+#latest-jobs {
+  margin-top: 80px !important;       /* ← REDUCED: was 140px, now 80px */
 }
 
 .card h2 {
