@@ -4,18 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>EasyEarn - Your Path to Flexible Work</title>
-  <!-- 1. Load the CSS file -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <!-- 2. Load the client-side script (deferred) -->
   <script src="{{ url_for('static', filename='js/form.js') }}" defer></script>
   <style>
-    /* Add these styles to override the existing ones for mobile menu.
-       No change to .header position—keep it fixed.
-       Using !important to ensure overrides on display and other properties. 
-       Breakpoint matches your CSS: 768px. */
-
+    /* ==================== MOBILE MENU OVERRIDES ==================== */
     .hamburger {
-      display: none; /* Hidden on desktop */
+      display: none;
       flex-direction: column;
       justify-content: space-around;
       width: 30px;
@@ -30,106 +24,69 @@
       transform: translateY(-50%);
       z-index: 10;
     }
-
     .hamburger .bar {
       width: 100%;
       height: 3px;
-      background-color: var(--text-medium); /* Match your text color */
+      background-color: var(--text-medium);
       transition: all 0.3s ease;
     }
+    .main-nav a { font-weight: 700 !important; }
 
-    /* Make all menu text bold */
-    .main-nav a {
-      font-weight: 700 !important; /* Bold for standout feel; overrides existing 500 */
-    }
-
-    /* Mobile-specific styles: Override existing mobile styles */
     @media (max-width: 768px) {
-      .hamburger {
-        display: flex !important; /* Force show on mobile */
-      }
-
-      .header {
-        position: fixed !important; /* Ensure it stays fixed */
-        justify-content: flex-start !important; /* Align logo left, hamburger right */
-      }
-
-      .main-nav {
-        width: auto !important; /* Don't force full width yet */
-      }
-
+      .hamburger { display: flex !important; }
+      .header { position: fixed !important; justify-content: flex-start !important; }
       .main-nav ul {
-        display: none !important; /* Hide by default on mobile */
+        display: none !important;
         flex-direction: column !important;
         position: absolute !important;
-        top: 100% !important; /* Directly below header */
+        top: 100% !important;
         right: 0 !important;
         background-color: var(--card-bg) !important;
-        width: 200px !important; /* Fixed width dropdown; adjust if needed */
+        width: 200px !important;
         box-shadow: var(--card-shadow-hover) !important;
         padding: 10px !important;
         z-index: 9 !important;
         margin: 0 !important;
         border-radius: var(--border-radius-sm) !important;
       }
-
-      .main-nav ul.active {
-        display: flex !important; /* Show when toggled */
-      }
-
-      .main-nav ul li {
-        margin: 10px 0 !important;
-        width: auto !important;
-        text-align: center !important; /* Centered text */
-      }
-
-      .main-nav a {
-        display: block !important;
-        text-align: center !important; /* Centered text */
-        padding: 8px 12px !important;
-      }
-
-      .main-nav a.button-accent {
-        margin-left: 0 !important;
-        margin-top: 0 !important;
-        width: auto !important;
-        text-align: center !important;
-      }
-
-      /* Hamburger animation */
-      .hamburger.active .bar:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
-
-      .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-      }
-
-      .hamburger.active .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-      }
+      .main-nav ul.active { display: flex !important; }
+      .hamburger.active .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .hamburger.active .bar:nth-child(2) { opacity: 0; }
+      .hamburger.active .bar:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
     }
 
-    /* ==================== NEW PARTNERS SECTION ==================== */
+    /* ==================== PARTNERS SECTION – FULL-WIDTH ==================== */
     #partners {
-      padding: 60px 20px;
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      margin-left: -50vw;
+      background: linear-gradient(90deg, #a4fffa, #d1ffb2); /* teal → warm cream */
+      padding: 80px 40px;
       text-align: center;
+      box-sizing: border-box;
     }
-
+        #partners h2 {
+      font-size: 3.2rem;           /* much larger */
+      font-weight: 700;             /* ultra bold */
+      letter-spacing: 4px;          /* spacious premium feel */
+      text-transform: uppercase;    /* ALL CAPS */
+      color: #0f172a;               /* strong dark color */
+      margin-bottom: 70px;          /* space before logos */
+      position: relative;
+    }
     .partners-container {
-      max-width: 950px;               /* 5 logos × 150px + gaps = max 5 visible */
-      margin: 0 auto;
+      position: relative;
+      width: 100%;
       overflow: hidden;
-      padding: 20px 0;
+      margin: 40px auto 0;
     }
-
     .partners-track {
       display: flex;
-      gap: 50px;
-      animation: scroll-right 60s linear infinite;
+      gap: 80px;
+      animation: scroll-left 100s linear infinite;
       will-change: transform;
     }
-
     .partner-logo {
       width: 150px;
       height: 150px;
@@ -139,50 +96,37 @@
       opacity: 0.7;
       transition: all 0.4s ease;
     }
-
     .partner-logo:hover {
       filter: grayscale(0%);
       opacity: 1;
       transform: scale(1.08);
     }
-
     .partners-container:hover .partners-track {
       animation-play-state: paused;
     }
-
-    @keyframes scroll-right {
-      0% {
-        transform: translateX(-50%);
-      }
-      100% {
-        transform: translateX(0%);
-      }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-
-    /* Responsive adjustment - smaller gap on mobile */
     @media (max-width: 768px) {
-      .partners-track {
-        gap: 30px;
-      }
-      .partners-container {
-        max-width: 100%;
-      }
+      #partners { padding: 60px 20px; }
+      .partners-track { gap: 40px; }
+      .partners-container::before,
+      .partners-container::after { width: 60px; }
     }
-    /* ============================================================ */
   </style>
 </head>
 <body>
-  <!-- Loading screen with spinning logo -->
   <div id="loader">
-    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EasyEarn Loading Logo" class="loader-logo">
+    <img src="{{ url_for('static', filename='images/EasyEarn_logo.png') }}" alt="EasyEarn Loading Logo" class="loader-logo">
   </div>
 
   <div class="container">
     <header class="header">
       <a href="#hero-section" class="logo-link">
         <div class="logo-section">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EasyEarn Logo" class="logo">
-            <h1>EasyEarn</h1>
+          <img src="{{ url_for('static', filename='images/EasyEarn_logo.png') }}" alt="EasyEarn Logo" class="logo">
+          <h1>EasyEarn</h1>
         </div>
       </a>
       <nav class="main-nav">
@@ -194,7 +138,6 @@
           <li><a href="#hero-section" class="button button-accent">Let's Talk</a></li>
         </ul>
       </nav>
-      <!-- Hamburger button for mobile only -->
       <button class="hamburger" id="hamburger">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -202,7 +145,7 @@
       </button>
     </header>
 
-    <!-- ======== HERO ======== -->
+    <!-- HERO -->
     <section id="hero-section" class="hero-section">
       <div class="hero-left">
         <h2>Discover online jobs that work for you.</h2>
@@ -213,37 +156,25 @@
           <h3>Let's Talk</h3>
           <p class="tagline">Tell us about you. We'll match you with roles that fit your skills.</p>
           <form id="leadForm">
-            <div class="form-group">
-              <input type="text" id="fullName" name="fullName" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-              <input type="email" id="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-              <input type="text" id="whatsapp" name="whatsapp" placeholder="WhatsApp Number" required>
-            </div>
+            <div class="form-group"><input type="text" id="fullName" name="fullName" placeholder="Your Name" required></div>
+            <div class="form-group"><input type="email" id="email" name="email" placeholder="Email" required></div>
+            <div class="form-group"><input type="text" id="whatsapp" name="whatsapp" placeholder="WhatsApp Number" required></div>
             <div class="form-group">
               <select id="state" name="state" required>
                 <option value="">State</option>
-                {% for state in states %}
-                  <option value="{{ state }}">{{ state }}</option>
-                {% endfor %}
+                {% for state in states %}<option value="{{ state }}">{{ state }}</option>{% endfor %}
               </select>
             </div>
             <div class="form-group">
               <select id="interestedJob" name="interestedJob" required>
                 <option value="">Interested Job</option>
-                {% for job in jobs %}
-                  <option value="{{ job }}">{{ job }}</option>
-                {% endfor %}
+                {% for job in jobs %}<option value="{{ job }}">{{ job }}</option>{% endfor %}
               </select>
             </div>
             <div class="form-group">
               <select id="availability" name="availability" required>
                 <option value="">Availability</option>
-                {% for avail in availabilities %}
-                  <option value="{{ avail }}">{{ avail }}</option>
-                {% endfor %}
+                {% for avail in availabilities %}<option value="{{ avail }}">{{ avail }}</option>{% endfor %}
               </select>
             </div>
             <button type="submit">Let's Talk</button>
@@ -253,7 +184,7 @@
       </div>
     </section>
 
-    <!-- ======== LATEST JOBS ======== -->
+    <!-- LATEST JOBS -->
     <section id="latest-jobs" class="card">
       <h2>Latest Jobs</h2>
       {% for job in latest_jobs %}
@@ -264,7 +195,7 @@
       {% endfor %}
     </section>
 
-    <!-- ======== WHY CHOOSE US ======== -->
+    <!-- WHY CHOOSE US -->
     <section id="why-choose-us" class="card">
       <h2>Why Choose EasyEarn?</h2>
       {% for adv in advantages %}
@@ -275,75 +206,75 @@
       {% endfor %}
     </section>
 
-    <!-- ======== TESTIMONIALS ======== -->
+    <!-- TESTIMONIALS -->
     <section id="user-testimonials" class="card">
       <h2>What Our Users Say</h2>
       {% for t in testimonials %}
-        <div class="testimonial-item">
+        <div class="testimonial testimonial-item">
           <p>"{{ t.quote }}"</p>
           <p class="testimonial-author">- {{ t.author }}</p>
         </div>
       {% endfor %}
     </section>
 
-    <!-- ======== ABOUT US ======== -->
+    <!-- ABOUT US -->
     <section id="about-us" class="card">
       <h2>About Us</h2>
       <p>{{ about_text }}</p>
     </section>
+  </div>
 
-    <!-- ======== PARTNER WITH (NEW SECTION) ======== -->
-    <section id="partners" class="card">
-      <h2>Partner With</h2>
-      <div class="partners-container">
-        <div class="partners-track">
-          <!-- Replace these placeholder images with your real partner logos -->
-          <img src="https://via.placeholder.com/150/0044ff/ffffff?text=Partner+1" alt="Partner 1" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ff6b00/ffffff?text=Partner+2" alt="Partner 2" class="partner-logo">
-          <img src="https://via.placeholder.com/150/00c8ff/ffffff?text=Partner+3" alt="Partner 3" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ff006b/ffffff?text=Partner+4" alt="Partner 4" class="partner-logo">
-          <img src="https://via.placeholder.com/150/8d00ff/ffffff?text=Partner+5" alt="Partner 5" class="partner-logo">
-          <img src="https://via.placeholder.com/150/00ff95/ffffff?text=Partner+6" alt="Partner 6" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ff0000/ffffff?text=Partner+7" alt="Partner 7" class="partner-logo">
-          <img src="https://via.placeholder.com/150/00ff00/ffffff?text=Partner+8" alt="Partner 8" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ffff00/ffffff?text=Partner+9" alt="Partner 9" class="partner-logo">
-          <img src="https://via.placeholder.com/150/9900ff/ffffff?text=Partner+10" alt="Partner 10" class="partner-logo">
+  <!-- ==================== PARTNER WITH – FULL WIDTH ==================== -->
+  <section id="partners">
+    <h2>Partner With</h2>
+    <div class="partners-container">
+      <div class="partners-track">
+        <!-- Replace these with your real 150×150 partner logos -->
+        <img src="{{ url_for('static', filename='images/Seek_logo.png') }}" alt="Partner 1" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ff6b00/ffffff?text=Partner+2" alt="Partner 2" class="partner-logo">
+        <img src="https://via.placeholder.com/150/00c8ff/ffffff?text=Partner+3" alt="Partner 3" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ff006b/ffffff?text=Partner+4" alt="Partner 4" class="partner-logo">
+        <img src="https://via.placeholder.com/150/8d00ff/ffffff?text=Partner+5" alt="Partner 5" class="partner-logo">
+        <img src="https://via.placeholder.com/150/00ff95/ffffff?text=Partner+6" alt="Partner 6" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ff0000/ffffff?text=Partner+7" alt="Partner 7" class="partner-logo">
+        <img src="https://via.placeholder.com/150/00ff00/ffffff?text=Partner+8" alt="Partner 8" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ffff00/ffffff?text=Partner+9" alt="Partner 9" class="partner-logo">
+        <img src="https://via.placeholder.com/150/9900ff/ffffff?text=Partner+10" alt="Partner 10" class="partner-logo">
 
-          <!-- Duplicated set for seamless infinite loop -->
-          <img src="https://via.placeholder.com/150/0044ff/ffffff?text=Partner+1" alt="Partner 1" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ff6b00/ffffff?text=Partner+2" alt="Partner 2" class="partner-logo">
-          <img src="https://via.placeholder.com/150/00c8ff/ffffff?text=Partner+3" alt="Partner 3" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ff006b/ffffff?text=Partner+4" alt="Partner 4" class="partner-logo">
-          <img src="https://via.placeholder.com/150/8d00ff/ffffff?text=Partner+5" alt="Partner 5" class="partner-logo">
-          <img src="https://via.placeholder.com/150/00ff95/ffffff?text=Partner+6" alt="Partner 6" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ff0000/ffffff?text=Partner+7" alt="Partner 7" class="partner-logo">
-          <img src="https://via.placeholder.com/150/00ff00/ffffff?text=Partner+8" alt="Partner 8" class="partner-logo">
-          <img src="https://via.placeholder.com/150/ffff00/ffffff?text=Partner+9" alt="Partner 9" class="partner-logo">
-          <img src="https://via.placeholder.com/150/9900ff/ffffff?text=Partner+10" alt="Partner 10" class="partner-logo">
-        </div>
+        <!-- Duplicated set for seamless loop -->
+        <img src="{{ url_for('static', filename='images/Seek_logo.png') }}" alt="Partner 1" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ff6b00/ffffff?text=Partner+2" alt="Partner 2" class="partner-logo">
+        <img src="https://via.placeholder.com/150/00c8ff/ffffff?text=Partner+3" alt="Partner 3" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ff006b/ffffff?text=Partner+4" alt="Partner 4" class="partner-logo">
+        <img src="https://via.placeholder.com/150/8d00ff/ffffff?text=Partner+5" alt="Partner 5" class="partner-logo">
+        <img src="https://via.placeholder.com/150/00ff95/ffffff?text=Partner+6" alt="Partner 6" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ff0000/ffffff?text=Partner+7" alt="Partner 7" class="partner-logo">
+        <img src="https://via.placeholder.com/150/00ff00/ffffff?text=Partner+8" alt="Partner 8" class="partner-logo">
+        <img src="https://via.placeholder.com/150/ffff00/ffffff?text=Partner+9" alt="Partner 9" class="partner-logo">
+        <img src="https://via.placeholder.com/150/9900ff/ffffff?text=Partner+10" alt="Partner 10" class="partner-logo">
       </div>
-    </section>
+    </div>
+  </section>
 
+  <div class="container">
     <footer>
       <p>© {{ current_year }} EasyEarn. All rights reserved.</p>
     </footer>
   </div>
 
-  <!-- JavaScript for toggling the menu and hiding loader -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const hamburger = document.getElementById('hamburger');
       const navUl = document.querySelector('.main-nav ul');
 
       if (hamburger && navUl) {
-        hamburger.addEventListener('click', function(event) {
-          event.stopPropagation();
+        hamburger.addEventListener('click', function(e) {
+          e.stopPropagation();
           this.classList.toggle('active');
           navUl.classList.toggle('active');
         });
-
-        document.addEventListener('click', function(event) {
-          if (!hamburger.contains(event.target) && !navUl.contains(event.target)) {
+        document.addEventListener('click', function(e) {
+          if (!hamburger.contains(e.target) && !navUl.contains(e.target)) {
             hamburger.classList.remove('active');
             navUl.classList.remove('active');
           }
@@ -354,9 +285,7 @@
       if (loader) {
         setTimeout(() => {
           loader.style.opacity = '0';
-          setTimeout(() => {
-            loader.style.display = 'none';
-          }, 200);
+          setTimeout(() => { loader.style.display = 'none'; }, 200);
         }, 500);
       }
     });
